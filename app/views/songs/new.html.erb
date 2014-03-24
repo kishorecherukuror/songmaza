@@ -1,0 +1,48 @@
+<center><h2><font color="red">Singer <%= @singer.name %> </font></h2></center>
+
+<hr />
+
+
+<%= form_for @song, :url =>{:action => :create, :id => @singer.id} , :html => { :multipart => true } do |f| %>
+
+
+ <% if @song.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@song.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% @song.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<center><table>
+<tr><td>Title:<%=f.text_field :song%></td></tr>
+<td>Song:<%=f.file_field :link%><br /></td></tr>
+<td>Year<%=f.text_field :year%><br /></td></tr>
+<td><%=f.submit%></td></tr>
+
+
+<%end%>
+</table>
+</center>
+
+
+<h1>List Of Songs</h1>
+<table border=1>
+    <tr><th>Year</th>
+    <th>song</th>
+    </tr>
+   
+<% @singer.songs.each do |s|%>
+  <tr><td><%= s.year %></td>
+  <td><%=link_to s.song, s.link.url %></td>
+  <td><%= link_to 'Destroy', s , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  
+  </tr>
+
+ <%end%>
+</table>
+(<%= link_to "back" ,new_singer_path %>)

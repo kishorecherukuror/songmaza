@@ -1,0 +1,23 @@
+<h1>Enter the Singer name</h1><br />
+
+<%= form_for @singer do |f| %>
+Name:<%=f.text_field :name%><br />
+Place<%=f.text_field :place%><br />
+<%=f.submit%>
+<%end%>
+
+
+<h1>List Of Singers</h1>
+<table border=1>
+    <tr><th>Name</th>
+    <th>Place</th>
+    </tr>
+<%@singers.each do |s|%>
+  <tr><td><%=link_to s.name, :controller => :songs ,:action => :new , :id => s.id %></td>
+  <td><%=s.place%></td></tr>
+    
+    
+    
+  
+<%end%>
+</table>
